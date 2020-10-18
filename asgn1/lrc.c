@@ -118,19 +118,19 @@ void roll_prompt(int pos) { printf("%s rolls...", names[pos % player_num]); }
 void pass_prompt() { printf(" gets a pass"); }
 
 void left_prompt(int pos) {
-  printf(" gives 1$ to %s", names[left(pos, player_num)]);
+  printf(" gives $1 to %s", names[left(pos, player_num)]);
   --ind_bank[pos % player_num];
   ++ind_bank[left(pos, player_num)];
 }
 
 void right_prompt(int pos) {
-  printf(" gives 1$ to %s", names[right(pos, player_num)]);
+  printf(" gives $1 to %s", names[right(pos, player_num)]);
   --ind_bank[pos % player_num];
   ++ind_bank[right(pos, player_num)];
 }
 
 void center_prompt(int pos) {
-  printf(" puts 1$ in the pot");
+  printf(" puts $1 in the pot");
   --ind_bank[pos % player_num];
   ++pot;
 }
