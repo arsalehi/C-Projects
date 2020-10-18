@@ -6,15 +6,15 @@
 // directly to the left and right of the current player
 
 // THESE FUNCTIONS WERE PROVIDED BY THE PROFESSOR IN ASGN1.PDF
-uint32_t left(uint32_t pos, uint32_t players) {
+unsigned int left(unsigned int pos, unsigned int players) {
     return ((pos + players - 1) % players);
 }
 
-uint32_t right(uint32_t pos, uint32_t players) {
+unsigned int right(unsigned int pos, unsigned int players) {
     return ((pos + 1) % players);
 }
 
-uint32_t player_num = 0, seed;
+int player_num = 0, seed;
 
 typedef enum faciem {LEFT, RIGHT, CENTER, PASS} faces;
 faces die[] = {LEFT, RIGHT, CENTER, PASS, PASS, PASS};
@@ -26,25 +26,26 @@ const char *names[] = {"Happy", "Sleepy", "Sneezy", "Dopey", "Bashful", "Grumpy"
 "Snow White", "Wicked Queen"};
 
 // prints "Name is Rolling..."
-void roll_prompt(uint32_t pos);
+void roll_prompt(int pos);
 // prompt for when player rolls a PASS
 void pass_prompt();
 // prompt for when player rolls LEFT-- also updates bank
-void left_prompt(uint32_t pos);
+void left_prompt(int pos);
 // prompt for when player rolls RIGHT-- also updates bank
-void right_prompt(uint32_t pos);
+void right_prompt(int pos);
 // prompt for when player rolls CENTER-- also updates bank and pot
-void center_prompt(uint32_t pos);
+void center_prompt(int pos);
 // checks to see if game should end-- aka if there is only one player with money in bank
 int end_check();     // ACTUALLY BOOLEAN -- 1 MEANS GAME ENDS 0 MEANS GO ON
 // prints final message declaring winner and their earnings
-void end_prompt(uint32_t pos);
+void end_prompt();
 
 int main(void){
 
     // handling seed and player number inputs
     printf("Radom Seed: ");
     scanf("%u", &seed);
+    srand(seed);
     //printf("How many Players? ");
     //scanf("%u", &player_num);
 
@@ -53,8 +54,7 @@ int main(void){
         scanf("%u", &player_num);
     }
 
-    uint32_t pos = 0, num_rolls = 0;
-    uint32_t temp = 0;
+    int pos = 0, num_rolls = 0;
 
     // GAME LOOP-- runs if ending condition does not return 1/True/should end
     while(end_check() != 1){
@@ -94,13 +94,9 @@ int main(void){
                     break;
             }
         }
-        printf("\n"); 
-
-        for (int i = 0; i < player_num; ++i){
-            printf("%u, ", ind_bank[i]);
-        }
-
-        printf("\n");
+	if (num_rolls != 0){
+        	printf("\n");
+	} 
 
         // increment position variable to move from player to player
         // do not account for player numbers here, mod%player_num is done in functions
@@ -115,7 +111,7 @@ int main(void){
 // declaration of functions that were prototyped above
 // explanation of functions is commented with prototypes
 
-void roll_prompt(uint32_t pos){
+void roll_prompt(int pos){
     printf("%s rolls...", names[pos % player_num]);
 }
 
@@ -123,19 +119,19 @@ void pass_prompt(){
     printf(" gets a pass");
 }
 
-void left_prompt(uint32_t pos){
+void left_prompt(int pos){
     printf(" gives 1$ to %s", names[left(pos, player_num)]);
     --ind_bank[pos % player_num];
     ++ind_bank[left(pos, player_num)];
 }
 
-void right_prompt(uint32_t pos){
+void right_prompt(int pos){
     printf(" gives 1$ to %s", names[right(pos, player_num)]);
     --ind_bank[pos % player_num];
     ++ind_bank[right(pos, player_num)];
 }
 
-void center_prompt(uint32_t pos){
+void center_prompt(int pos){
     printf(" puts 1$ in the pot");
     --ind_bank[pos % player_num];
     ++pot;
@@ -155,7 +151,7 @@ int end_check(){
     }
 }
 
-void end_prompt(uint32_t pos){
+void end_prompt(){
     int winner_index = 0;
     for(int i =0; i < player_num; ++i){
         if (ind_bank[i] != 0){
