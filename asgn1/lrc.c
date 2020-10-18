@@ -44,14 +44,14 @@ void end_prompt();
 int main(void) {
 
   // handling seed and player number inputs
-  printf("Radom Seed: ");
+  printf("Random Seed: ");
   scanf("%u", &seed);
   srand(seed);
   // printf("How many Players? ");
   // scanf("%u", &player_num);
 
   while (player_num < 2 || player_num > 10) {
-    printf("How many Players? ");
+    printf("How many players? ");
     scanf("%u", &player_num);
   }
 
@@ -156,6 +156,6 @@ void end_prompt() {
       winner_index = i;
     }
   }
-  printf("%s wins the $%u pot with $%u left in the bank!\n",
-         names[winner_index], pot, ind_bank[winner_index]);
+  printf("%s wins the $%u pot with $%u left in the bank!", names[winner_index],
+         pot, ind_bank[winner_index]);
 }
