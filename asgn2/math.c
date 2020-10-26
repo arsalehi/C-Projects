@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define EPSILON 1e-10
+#define EPSILON 1e-9
 #define OPTIONS "sctea"
 
 double Sin(void);
