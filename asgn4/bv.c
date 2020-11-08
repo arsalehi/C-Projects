@@ -50,7 +50,7 @@ uint8_t bv_get_bit(BitVector *v, uint32_t i) {
 }
 
 void bv_set_all_bits(BitVector *v) {
-  for (uint8_t i = 0; i < v->length / 8 + 1; i++) {
+  for (uint32_t i = 0; i < v->length / 8 + 1; i++) {
     v->vector[i] = 0xFF;
   }
   return;
