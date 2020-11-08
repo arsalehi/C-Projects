@@ -28,7 +28,7 @@ void string_reverse(char *string);
 bool is_palindrome(char *string);
 
 int main(int argc, char **argv) {
-  int num_bits = 100;
+  int num_bits = 1000;
   int opt = 0;
   bool want_specials = false;
   bool want_palindromes = false;
