@@ -11,7 +11,7 @@
 // Returns number of moves necessary to complete sorting
 int b_sort(uint32_t *arr, int size);
 
-//Returns number of comparisons
+// Returns number of comparisons
 //
 int b_get_comparisons();
 
