@@ -2,7 +2,7 @@ CFLAGS= -Wall -Wextra -Werror -pedantic
 CC = clang $(CFLAGS)
 
 sequence	:       sequence.o bv.o sieve.o
-	$(CC) -o sequence sequence.o bv.o sieve.o
+	$(CC) -o sequence sequence.o bv.o sieve.o -lm
 sieve.o		:       sieve.c bv.h sieve.c
 	$(CC) -c sieve.c
 bv.o	:       bv.c bv.h
