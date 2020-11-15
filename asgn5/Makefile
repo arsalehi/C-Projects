@@ -16,7 +16,9 @@ quick.o	:	quick.c quick.h helper.c
 sorting.o	:	sorting.c
 	$(CC) -c sorting.c
 clean	:
-	rm -f sequence sequence.o bv.o sieve.o
+	rm -f sorting sorting.o helper.o bubble.o binary.o shell.o quick.o
 infer	:
-	make clean; infer-capture -- make; infer-capture -- make; infer-analyze -- make
+	make clean; infer-capture -- make; infer-analyze -- make
+valgrind:
+	valgrind ./sorting -A
 

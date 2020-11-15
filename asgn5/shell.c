@@ -15,9 +15,10 @@ int s_sort(uint32_t *arr, int size){
         if(temp <= 2){
             gap[gap_count++] = 1;
             temp = 1;
-        } else 
+        } else { 
             gap[gap_count++] = (5 * temp / 11);
             temp = (5 * temp / 11);
+	}
     }
 
     for(int i = 0; i < gap_count; ++i){
