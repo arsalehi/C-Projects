@@ -1,4 +1,4 @@
-CFLAGS= -Wall -Wextra -Werror -pedantic -std=C99
+CFLAGS= -Wall -Wextra -Werror -pedantic -std=c99
 CC = clang $(CFLAGS)
 
 sorting	:	sorting.o helper.o bubble.o binary.o shell.o quick.o
