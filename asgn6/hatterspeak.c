@@ -186,6 +186,16 @@ int main(int argc, char **argv) {
     }
     printf("Bloom filter load: %f%%\n",
            (bloom_load / bf->filter->length) * 100);
+
+    ll_delete(head_f);
+    ll_delete(head_t);
+
+    clear_words();
+    regfree(&regex);
+    bf_delete(bf);
+    bf_delete(vals);
+    ht_delete(ht);
+
     return 0;
   }
 
