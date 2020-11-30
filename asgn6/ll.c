@@ -84,9 +84,7 @@ ListNode *ll_lookup(ListNode **head, char *key) {
     // printf("temp is not NULL\n");
   }
 
-  if (!move_to_front) {
-    traverses++;
-  }
+  traverses++;
 
   ListNode *next = temp->next;
 
