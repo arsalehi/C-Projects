@@ -61,8 +61,6 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  // Put more if statements later
-
   //***************************************************************
 
   HashTable *ht = ht_create(hash_size);
@@ -90,7 +88,7 @@ int main(int argc, char **argv) {
     printf("Error with .txt file\n");
     return 0;
   }
-
+  // Process hatterspeak.txt words and allocate to ht and bf
   char hs_old[0xFF];
   char hs_hat[0xFF];
   while (fscanf(hatter_speak, "%s %s\n", hs_old, hs_hat) != EOF) {
@@ -115,6 +113,8 @@ int main(int argc, char **argv) {
   HatterSpeak *hat_f = hatter_create("~", "~");
   HatterSpeak *hat_t = hatter_create("~", "~");
 
+  // Create linked lists that store forbidden words and translatable words
+  // Used later for printing which words were not safe
   ListNode *forbidden = ll_node_create(hat_f);
   bool contains_forbidden = false;
   ListNode *translatable = ll_node_create(hat_t);
@@ -189,6 +189,7 @@ int main(int argc, char **argv) {
     return 0;
   }
 
+  // Decide which output to produce given user input
   if (contains_forbidden && contains_translatable) {
     printf("\nDear Comrade,\n\n");
     printf(
@@ -261,6 +262,8 @@ int main(int argc, char **argv) {
   } else {
     printf("All words are safe\n");
   }
+
+  // Free all dynamically allocated memory
 
   // printf("\n\nNo seg faults in Print sequence\n");
 

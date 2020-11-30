@@ -64,7 +64,7 @@ void ht_insert(HashTable *ht, HatterSpeak *gs) {
   // printf("Made it to insert\n");
   uint32_t index = hash(ht->salt, gs->oldspeak) % ht->length;
   if (ht->heads[index] == NULL) {
-    ht->heads[index] = ll_node_create(gs); // Has to be freed somewhere though?
+    ht->heads[index] = ll_node_create(gs);
     seeks++;
     // traverses++;
   } else {
