@@ -18,10 +18,10 @@
 // filter:      BitVector that determines membership of a key
 //
 typedef struct BloomFilter {
-    uint64_t primary[2];
-    uint64_t secondary[2];
-    uint64_t tertiary[2];
-    BitVector *filter;
+  uint64_t primary[2];
+  uint64_t secondary[2];
+  uint64_t tertiary[2];
+  BitVector *filter;
 } BloomFilter;
 
 //

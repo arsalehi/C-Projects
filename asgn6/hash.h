@@ -2,7 +2,7 @@
 #define __HASH_H__
 
 #ifndef NIL
-#define NIL (void*)0
+#define NIL (void *)0
 #endif
 
 #include "ll.h"
@@ -17,9 +17,9 @@
 // heads:   An array of linked list heads.
 //
 typedef struct HashTable {
-    uint64_t salt[2];
-    uint32_t length;
-    ListNode **heads;
+  uint64_t salt[2];
+  uint32_t length;
+  ListNode **heads;
 } HashTable;
 
 //
@@ -71,6 +71,5 @@ uint32_t ht_get_len(HashTable *ht);
 // Prints Hashtable
 //
 void ht_print(HashTable *ht);
-
 
 #endif

@@ -1,13 +1,13 @@
 #ifndef __LL_H__
 #define __LL_H__
 
-
 #ifndef NIL
 #define NIL (void *)0
 #endif
 
-#include <stdbool.h>
 #include "hatter.h"
+#include <inttypes.h>
+#include <stdbool.h>
 
 extern bool move_to_front;
 
@@ -19,8 +19,8 @@ typedef struct ListNode ListNode;
 // gs:  HatterSpeak struct containing oldspeak and its hatterspeak translation.
 //
 struct ListNode {
-    HatterSpeak *gs;
-    ListNode *next;
+  HatterSpeak *gs;
+  ListNode *next;
 };
 
 //
@@ -62,7 +62,7 @@ ListNode *ll_lookup(ListNode **head, char *key);
 
 //
 // Returns length of Linked List -- number of nodes
-// 
+//
 // *head:   head of linked list
 //
 uint32_t ll_length(ListNode *head);
@@ -76,4 +76,3 @@ int get_seeks();
 int get_traversed();
 
 #endif
-

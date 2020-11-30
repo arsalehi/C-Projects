@@ -7,7 +7,7 @@
 
 #define BLOCK 4096
 
-static char *words[BLOCK] = { NULL }; // Stores a block of words maximum.
+static char *words[BLOCK] = {NULL}; // Stores a block of words maximum.
 
 //
 // Returns the next word that matches the specified regular expression.
@@ -26,7 +26,7 @@ char *next_word(FILE *infile, regex_t *word_regex) {
 
     regmatch_t match;
     uint32_t matches = 0;
-    char buffer[BLOCK] = { 0 };
+    char buffer[BLOCK] = {0};
 
     while (!matches) {
       if (!fgets(buffer, BLOCK, infile)) {

@@ -16,6 +16,7 @@ BitVector *bv_create(uint32_t bit_len) {
   v->vector = (uint8_t *)calloc((bit_len / 8) + 1, sizeof(uint8_t));
 
   if (!v->vector) {
+    free(v);
     return 0;
   }
   return v;
