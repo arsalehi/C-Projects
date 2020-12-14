@@ -33,26 +33,29 @@ Word *word_create(uint8_t *syms, uint64_t len){
 }
 
 Word *word_append_sym(Word *w, uint8_t sym){
-    printf("in word append sym\n");
+    //printf("in word append sym\n");
     if(!w){
+        //printf("failed first condition wps\n");
         return (Word *)NIL;
     }
     Word *new = (Word *)malloc(sizeof(Word));
     if(!new){
+        //printf("failed malloc wps\n");
         return (Word *)NIL;
     }
     new->len = w->len + 1;
 
     new->syms = (uint8_t *)malloc(sizeof(uint8_t) * new->len);
     if(!new->syms){
+        //printf("failed syms condition wps\n");
         free(new);
         return (Word *)NIL;
     }
-    printf("created word in append\n");
+    //printf("created word in append\n");
     memcpy(new->syms, w->syms, w->len);
-    printf("memcpy successful\n");
+    //printf("memcpy successful\n");
     new->syms[new->len -1] = sym;
-    printf("function successful\n");
+    //printf("function successful\n");
 
     return new;
 }
@@ -66,7 +69,7 @@ void word_delete(Word *w){
 }
 
 WordTable *wt_create(void){
-    WordTable *wt = calloc(MAX_CODE, sizeof(Word));
+    WordTable *wt = (WordTable *)calloc(MAX_CODE, sizeof(Word));
     if(!wt){
         return (WordTable *)NIL;
     }

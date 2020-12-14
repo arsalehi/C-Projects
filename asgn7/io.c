@@ -110,15 +110,13 @@ void buffer_pair(int outfile, uint16_t code, uint8_t sym, uint8_t bitlen){
 
         // Check to see if buffer is full: write to outfile
         if(bit_index / 8 == BLOCK){
-            //printf("Wrote bytes in code\n");
+            printf("Wrote bytes in code\n");
             write_bytes(outfile, bit_buf, BLOCK);
             bit_index = 0;
         }
     }
 
     // BUFFER SYM
-
-    // total_sym++; // Multiply by 8 to get num bits later
 
     for(uint8_t i = 0; i < 8; i++){
 
@@ -133,7 +131,7 @@ void buffer_pair(int outfile, uint16_t code, uint8_t sym, uint8_t bitlen){
 
         // Check to see if buffer is full: write to outfile
         if(bit_index / 8 == BLOCK){
-            //printf("Wrote bytes in sym\n");
+            printf("Wrote bytes in sym\n");
             write_bytes(outfile, bit_buf, BLOCK);
             bit_index = 0;
        }
@@ -145,15 +143,15 @@ void buffer_pair(int outfile, uint16_t code, uint8_t sym, uint8_t bitlen){
 
 void flush_pairs(int outfile){
     
-    int bytes = 0;
     // Check if there are things to be flushed
     if(bit_index != 0){
+        int bytes;
         if(bit_index % 8 == 0){
             bytes = bit_index / 8;
         } else {
             bytes = bit_index / 8 + 1;
         }
-        //printf("bits: %d\n", bit_index);
+        printf("wrote out in flush pairs\n");
         write_bytes(outfile, bit_buf, bytes); // Be careful for static problems
     }
 
@@ -171,6 +169,7 @@ bool read_pair(int infile, uint16_t *code, uint8_t *sym, uint8_t bitlen){
         
         // READ TO BUFFER IF FIRST CALL
         if(bit_index == 0){
+            //printf("Read bytes in read_pair\n");
             read_bytes(infile, bit_buf, BLOCK);
         }
 
@@ -187,7 +186,7 @@ bool read_pair(int infile, uint16_t *code, uint8_t *sym, uint8_t bitlen){
         }
     }
     
-    printf("RP code: %d\n", *code);
+    //printf("RP code: %d\n", *code);
     // READ SYM
     *sym = 0;
 
@@ -216,16 +215,18 @@ bool read_pair(int infile, uint16_t *code, uint8_t *sym, uint8_t bitlen){
 
 
 void buffer_word(int outfile, Word *w){
-
-    total_syms++;
-    printf("in buffer word\n");
+    if(!w){
+        return;
+    }
+    total_syms+= w->len;
+    //printf("in buffer word\n");
 
     for(uint64_t i = 0; i < w->len; i++){
-        printf("adding sym");
+        //printf("adding sym");
         sym_buf[sym_index++] = w->syms[i];
 
         if(sym_index == BLOCK){
-            printf("Writing out in buf_word\n");
+            //printf("Writing out in buf_word\n");
             write_bytes(outfile, sym_buf, BLOCK);
             sym_index = 0;
         }
@@ -236,10 +237,10 @@ void buffer_word(int outfile, Word *w){
 
 
 void flush_words(int outfile){
-    printf("sym index in flush_words: %d", sym_index);
+    //printf("sym index in flush_words: %d", sym_index);
     if(sym_index != 0){
         write_bytes(outfile, sym_buf, sym_index);
-        printf("Writing out in flush_words");
+        //printf("Writing out in flush_words");
     }
 
     return;

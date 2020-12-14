@@ -19,4 +19,4 @@ io.o	:	io.c io.h
 clean	:
 	rm -f encode encode.o decode decode.o io.o trie.o word.o
 infer	:
-	make clean; infer-capture -- make; infer-analyze -- make
+	make clean; infer-capture -- make all; infer-analyze -- make all

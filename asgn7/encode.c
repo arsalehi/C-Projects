@@ -9,18 +9,69 @@
 #include <math.h>
 #include <fcntl.h>
 
+#define OPTIONS "vi:o:"
+
 uint8_t bitlen(uint16_t x);
 
 struct stat infstats;
 
-int main(void){
+int main(int argc, char **argv){
+    int op = 0;
+    bool stats = false; bool in = false; bool out = false;
+    char *in_name;
+    char *out_name;
+    int infile = STDIN_FILENO;
+    int outfile = STDOUT_FILENO;
 
-    int outfile = open("out.txt", O_WRONLY | O_CREAT | O_TRUNC, 0600);
-    int infile = open("in.txt", O_RDONLY);
+    while((op = getopt(argc, argv, OPTIONS)) != -1){
+        switch(op){
+            case 'v':
+                stats = true;
+                break;
+            case 'i':  
+                in_name = optarg;
+                in = true;
+                break;
+            case 'o':
+                out_name = optarg;
+                out = true;
+                break;
+            default:
+                printf("Invalid arguments\n");
+                return 0;
+        }
+    }
+
+    if(in){
+        infile = open(in_name, O_RDONLY);
+        if(infile == -1){
+            close(infile);
+            printf("INFILE READ FAILED\n");
+            return 0;
+        }
+    }
+
+    if(out){
+        outfile = open(out_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+        if(outfile == -1){
+            close(outfile);
+            printf("OUTFILE READ FAILED\n");
+            if(in){
+                close(infile);
+            }
+            return 0;
+        }
+    }
 
     fstat(infile, &infstats);
     
-    FileHeader *infhead = (FileHeader *)calloc(1, sizeof(FileHeader));
+    FileHeader *infhead;
+    infhead = (FileHeader *)calloc(1, sizeof(FileHeader));
+    if(infhead == NULL){
+        close(infile);
+        close(outfile);
+        return 0;
+    }
     infhead->magic = MAGIC;
     infhead->protection = infstats.st_mode;
 
@@ -31,6 +82,11 @@ int main(void){
 
     TrieNode *root = trie_create();
     TrieNode *curr_node = root;
+    if(!curr_node){
+        close(infile);
+        close(outfile);
+        return 0;
+    }
     TrieNode *prev_node = NULL;
 
     uint8_t curr_sym = 0;
