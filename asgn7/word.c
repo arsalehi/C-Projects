@@ -34,7 +34,7 @@ Word *word_create(uint8_t *syms, uint64_t len) {
 
 Word *word_append_sym(Word *w, uint8_t sym) {
   // printf("in word append sym\n");
-  if (!w || w->syms) {
+  if (!w) {
     // printf("failed first condition wps\n");
     return (Word *)NIL;
   }
