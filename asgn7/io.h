@@ -9,7 +9,7 @@
 extern uint64_t total_syms;
 extern uint64_t total_bits;
 
-#define MAGIC 0x8badbeef        //Program's magic number
+#define MAGIC 0x8badbeef // Program's magic number
 
 //
 // Struct definition of a FileHeader.
@@ -18,8 +18,8 @@ extern uint64_t total_bits;
 // protection:  Protection/permissions of the original, uncompressed file.
 //
 typedef struct FileHeader {
-    uint32_t magic;
-    uint16_t protection;
+  uint32_t magic;
+  uint16_t protection;
 } FileHeader;
 
 //
@@ -124,7 +124,7 @@ void flush_pairs(int outfile);
 //
 bool read_pair(int infile, uint16_t *code, uint8_t *sym, uint8_t bitlen);
 
-// 
+//
 // Buffers a Word, or more specifically, the symbols of a Word.
 // Each symbol of the Word is placed into a buffer.
 // The buffer is written out when it is fileld.
@@ -135,7 +135,7 @@ bool read_pair(int infile, uint16_t *code, uint8_t *sym, uint8_t bitlen);
 //
 void buffer_word(int outfile, Word *w);
 
-// 
+//
 // Writes out any remaining symbols in the buffer.
 //
 // outfile: File descriptor of the output file to write to.
@@ -144,5 +144,3 @@ void buffer_word(int outfile, Word *w);
 void flush_words(int outfile);
 
 #endif
-
-

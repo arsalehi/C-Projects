@@ -1,9 +1,9 @@
 #ifndef __WORD_H__
 #define __WORD_H__
 
+#include "code.h"
 #include <inttypes.h>
 #include <stdlib.h>
-#include "code.h"
 
 //
 // Struct definition of a word.
@@ -12,11 +12,11 @@
 // len:     Length of the array storing the symbols a Word represents.
 //
 typedef struct Word {
-    uint8_t *syms;
-    uint64_t len;
+  uint8_t *syms;
+  uint64_t len;
 } Word;
 
-typedef Word * WordTable;
+typedef Word *WordTable;
 
 //
 // Constructor for a word
@@ -26,7 +26,6 @@ typedef Word * WordTable;
 // returns: Pointer to a Word that has been allocated memory
 //
 Word *word_create(uint8_t *syms, uint64_t len);
-
 
 //
 // Constructs a new Word from the specified Word appended with a symbol.
@@ -41,7 +40,7 @@ Word *word_append_sym(Word *w, uint8_t sym);
 
 //
 // Destructor for a Word.
-// 
+//
 // w:   Word to free memory for.
 // returns: Void.
 //

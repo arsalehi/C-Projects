@@ -1,10 +1,10 @@
 #ifndef __TRIE_H__
 #define __TRIE_H__
 
+#include "code.h"
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "code.h"
 
 #define ALPHABET 256
 
@@ -37,7 +37,7 @@ TrieNode *trie_node_create(uint16_t);
 //
 void trie_node_delete(TrieNode *n);
 
-// 
+//
 // Initializes a Trie: a root TrieNode with the code EMPTY_CODE.
 //
 // returns: Pointer to the root of a Trie
@@ -73,9 +73,3 @@ TrieNode *trie_step(TrieNode *n, uint8_t);
 void tn_print(TrieNode *n);
 
 #endif
-
-
-
-
-
-
