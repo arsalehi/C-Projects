@@ -71,13 +71,20 @@ int main(int argc, char **argv) {
   }
 
   FileHeader *head = (FileHeader *)calloc(1, sizeof(FileHeader));
+  if (!head) {
+    printf("Header failed to initialize\n");
+    return 0;
+  }
   fchmod(infile, infstats.st_mode);
   read_header(infile, head);
 
   if (head->magic != MAGIC) {
     printf("MAGIC DID NOT CORRELATE\n");
+    free(head);
     return 0;
   }
+
+  free(head);
 
   WordTable *table = wt_create();
   uint8_t curr_sym = 0;
@@ -98,6 +105,7 @@ int main(int argc, char **argv) {
   }
   flush_words(outfile);
 
+  // Process Statistics
   if (stats) {
     int64_t c_bytes =
         (total_bits % 8 < 4) ? total_bits / 8 : total_bits / 8 + 1;
@@ -109,7 +117,7 @@ int main(int argc, char **argv) {
     printf("Compression ratio: %.2lf%%\n", cmp_ratio);
   }
 
-  free(head);
+  // free(head);
   close(infile);
   close(outfile);
   wt_delete(table);

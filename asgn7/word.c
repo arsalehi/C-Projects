@@ -34,10 +34,11 @@ Word *word_create(uint8_t *syms, uint64_t len) {
 
 Word *word_append_sym(Word *w, uint8_t sym) {
   // printf("in word append sym\n");
-  if (!w) {
+  if (!w || w->syms) {
     // printf("failed first condition wps\n");
     return (Word *)NIL;
   }
+
   Word *new = (Word *)malloc(sizeof(Word));
   if (!new) {
     // printf("failed malloc wps\n");
@@ -53,6 +54,11 @@ Word *word_append_sym(Word *w, uint8_t sym) {
   }
   // printf("created word in append\n");
   memcpy(new->syms, w->syms, w->len);
+
+  // make sure memcpy did not fail
+  if (!new->syms) {
+    return (Word *)NIL;
+  }
   // printf("memcpy successful\n");
   new->syms[new->len - 1] = sym;
   // printf("function successful\n");
